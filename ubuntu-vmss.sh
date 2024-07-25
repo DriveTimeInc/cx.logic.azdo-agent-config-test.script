@@ -73,11 +73,22 @@ mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
 # install pyenv
 mkdir -p /home/AzDevOps
 git clone https://github.com/pyenv/pyenv.git /home/AzDevOps/.pyenv
-chmod 777 /home/AzDevOps/.pyenv
 
 # set env variables for provisioning
 export PYENV_ROOT="/home/AzDevOps/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+
+# load pyenv into the shell
+eval "$(pyenv init -)"
+
+# install 3.11.9
+pyenv install 3.11.9
+
+# set the system to use 3.11.9
+pyenv global 3.11.9
+
+# give all perms to the .pyenv folder
+chmod -R a+rwx /home/AzDevOps/.pyenv
 
 # setup pyenv entries in .bashrc
 echo 'export PYENV_ROOT="/home/AzDevOps/.pyenv"' >> /home/AzDevOps/.bashrc
@@ -89,11 +100,3 @@ echo 'export PYENV_ROOT="/home/AzDevOps/.pyenv"' >> /home/AzDevOps/.profile
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/AzDevOps/.profile
 echo 'eval "$(pyenv init -)"' >> /home/AzDevOps/.profile
 
-# load pyenv into the shell
-eval "$(pyenv init -)"
-
-# install 3.11.9
-pyenv install 3.11.9
-
-# set the system to use 3.11.9
-pyenv global 3.11.9
