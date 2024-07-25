@@ -73,6 +73,7 @@ mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
 # install pyenv
 mkdir -p /home/AzDevOps
 git clone https://github.com/pyenv/pyenv.git /home/AzDevOps/.pyenv
+chmod 777 /home/AzDevOps/.pyenv
 
 # set env variables for provisioning
 export PYENV_ROOT="/home/AzDevOps/.pyenv"
