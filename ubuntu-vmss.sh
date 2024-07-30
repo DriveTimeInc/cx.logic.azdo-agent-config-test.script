@@ -32,8 +32,6 @@ sudo apt-get install -y \
     libbz2-dev
     
 
-#python3.11-venv
-
 # Download the Microsoft repository GPG keys
 wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
 
@@ -74,18 +72,12 @@ mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
 
 # install pyenv
 git clone https://github.com/pyenv/pyenv.git /usr/local/bin/.pyenv
-
-# set env variables for provisioning
 export PYENV_ROOT="/usr/local/bin/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-
-# load pyenv into the shell
 eval "$(pyenv init -)"
 
-# install 3.11.9
+# install/set 3.11.9
 pyenv install 3.11.9
-
-# set the system to use 3.11.9
 pyenv global 3.11.9
 
 # from: https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/use-python-version-v0?view=azure-pipelines#how-can-i-configure-a-self-hosted-agent-to-use-this-task
@@ -101,10 +93,8 @@ LOCAL_AGENT_TOOLS_DIR="/agent/_work/_tool"
 #                 {tool files}
 #             x64.complete
 
-# Create the directory for 3.11
+# Create the directory for 3.11 and 3.11.9
 mkdir -p "$LOCAL_AGENT_TOOLS_DIR/Python/3.11"
-
-# Create the directory for 3.11.9
 mkdir -p "$LOCAL_AGENT_TOOLS_DIR/Python/3.11.9"
 
 # Create the simlink from 3.11, to 3.11.9
@@ -112,8 +102,6 @@ mkdir -p "$LOCAL_AGENT_TOOLS_DIR/Python/3.11.9"
 ln -s "$LOCAL_AGENT_TOOLS_DIR/Python/3.11.9" "$LOCAL_AGENT_TOOLS_DIR/Python/3.11"
 
 # create the venv inside the 3.11.9/x64 directory
-# the python3.11 command is from the python3.11-venv apt package
-# python3.11 -m venv "$LOCAL_AGENT_TOOLS_DIR/Python/3.11.9/x64"
 python -m venv "$LOCAL_AGENT_TOOLS_DIR/Python/3.11.9/x64"
 
 # create the .complete file
